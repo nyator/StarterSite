@@ -22,7 +22,7 @@ type InputProps = {
 const Button = ({ name, onClick }: ButtonProps) => {
   return (
     <button
-      className="mt-10 group relative inline-flex h-14 items-center border-neutral-700 hover:border-neutral-200 border-2 border-dashed justify-center rounded-full bg-neutral-950 py-1 pl-6 pr-14 text-neutral-50 hover:text-black duration-500 transition-colors hover:bg-neutral-800 focus:outline-none "
+      className="group relative inline-flex h-14 items-center border-neutral-700 hover:border-neutral-200 border-2 border-dashed justify-center rounded-full bg-neutral-950 py-1 pl-6 pr-14 text-neutral-50 hover:text-black duration-500 transition-colors hover:bg-neutral-800 focus:outline-none "
       onClick={onClick}
     >
       <span className="z-10 pr-2 font-Satoshi-Bold">{name}</span>
@@ -241,7 +241,7 @@ const Home = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
         </div>
 
-        <div className="text-white text-center space-y-20 px-4">
+        <div className="text-white text-center space-y-10 lg:space-y-15 px-4">
           <div>
             <h1 className="font-Satoshi-Bold text-7xl lg:text-9xl">
               builtelo.
