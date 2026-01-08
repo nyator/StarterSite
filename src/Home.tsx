@@ -41,6 +41,8 @@ const Button = ({ name, onClick }: ButtonProps) => {
               fill="currentColor"
               fillRule="evenodd"
               clipRule="evenodd"
+              strokeWidth="0.5"
+              stroke="currentColor"
             ></path>
           </svg>
         </div>
@@ -178,70 +180,101 @@ const Home = () => {
     return !nameError && !emailError;
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     setTouched({ name: true, email: true });
 
     if (validateForm()) {
       setIsSubmitting(true);
-      // Simulate API call
-      setTimeout(() => {
-        console.log("Form submitted:", formData);
+
+      // Submit to Formspree
+      const FORMSPREE_ENDPOINT = import.meta.env.VITE_FORMSPREE_ENDPOINT;
+
+      if (!FORMSPREE_ENDPOINT) {
+        console.error(
+          "Form endpoint not configured. Please add VITE_FORMSPREE_ENDPOINT to your .env file."
+        );
         setIsSubmitting(false);
-        setSubmitSuccess(true);
-        // Reset form
-        setFormData({ name: "", email: "" });
-        setTouched({ name: false, email: false });
-        setErrors({ name: "", email: "" });
-        // Hide success message after 3 seconds
-        setTimeout(() => setSubmitSuccess(false), 3000);
-      }, 1000);
+        return;
+      }
+
+      try {
+        const response = await fetch(FORMSPREE_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          console.log("Form submitted:", formData);
+          setSubmitSuccess(true);
+          setFormData({ name: "", email: "" });
+          setTouched({ name: false, email: false });
+          setErrors({ name: "", email: "" });
+          setTimeout(() => setSubmitSuccess(false), 5000);
+        } else {
+          alert("Something went wrong. Please try again.");
+        }
+      } catch (error) {
+        console.error("Submission error:", error);
+        alert("Error submitting form. Please try again.");
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
   return (
-    <div className="">
-      <div className="fixed inset-0 flex items-center justify-center h-screen w-screen -z-50">
-        <video
-          src={bgVideo}
-          autoPlay
-          loop
-          muted
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 flex items-center justify-center bg-black opacity-40"></div>
-      </div>
-
-      <div className="min-h-screen flex flex-col items-center justify-center text-white text-center space-y-20 px-4">
-        <div>
-          <h1 className="font-Satoshi-Bold text-7xl lg:text-9xl">builtelo.</h1>
-          <p className="text-xl">we built technological innovation</p>
-        </div>
-        <div className="max-w-2xl text-xl font-Satoshi-Medium">
-          <h1>
-            Something is Cooking <span>👨‍🍳</span>
-          </h1>
-          <p>we are building something amazing together, watch this space!</p>
-        </div>
-
-        <div>
-          <Button
-            name="Scroll Down"
-            onClick={() =>
-              document
-                .getElementById("form")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
+    <div className="snap-y snap-mandatory h-screen overflow-y-scroll">
+      {/* Hero Section - Full Screen Page 1 */}
+      <section className="snap-start h-screen relative flex flex-col items-center justify-center">
+        <div className="fixed inset-0 -z-10">
+          <video
+            src={bgVideo}
+            autoPlay
+            loop
+            muted
+            className="w-full h-full object-cover"
           />
+          <div className="absolute inset-0 bg-linear-to-t from-black to-transparent"></div>
         </div>
-      </div>
 
+        <div className="text-white text-center space-y-20 px-4">
+          <div>
+            <h1 className="font-Satoshi-Bold text-7xl lg:text-9xl">
+              builtelo.
+            </h1>
+            <p className="text-xl">we built technological innovation</p>
+          </div>
+          <div className="max-w-2xl text-xl font-Satoshi-Medium">
+            <h1>
+              Something is Cooking <span>👨‍🍳</span>
+            </h1>
+            <p>we are building something amazing together, watch this space!</p>
+          </div>
+
+          <div>
+            <Button
+              name="Scroll Down"
+              onClick={() =>
+                document
+                  .getElementById("form")
+                  ?.scrollIntoView({ behavior: "smooth" })
+              }
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Form Section - Full Screen Page 2 */}
       <section
         id="form"
-        className="min-h-screen flex flex-col items-center justify-center text-white p-10 font-Satoshi space-y-6"
+        className="snap-start h-screen flex flex-col items-center justify-center text-white p-10 font-Satoshi space-y-6 bg-black"
       >
         <div className="space-y-2 text-center">
-          <h1 className="text-4xl font-Satoshi-Bold">Keep Up With Us</h1>
+          <h1 className="text-3xl font-Satoshi-Bold">Keep Up With Us</h1>
           <p>
             Get notified <span>🔔</span>
           </p>
