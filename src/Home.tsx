@@ -132,7 +132,7 @@ const validateName = (name: string): string => {
     return "Name is required";
   }
   if (name.trim().length < 2) {
-    return "Name must be at least 2 characters";
+    return "Name must be at least 2 characters long";
   }
   return "";
 };
@@ -238,7 +238,7 @@ const Home = () => {
             muted
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-linear-to-t from-black to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
         </div>
 
         <div className="text-white text-center space-y-20 px-4">
@@ -246,13 +246,13 @@ const Home = () => {
             <h1 className="font-Satoshi-Bold text-7xl lg:text-9xl">
               builtelo.
             </h1>
-            <p className="text-xl">we built technological innovation</p>
+            <p className="text-xl">We build technological innovation</p>
           </div>
           <div className="max-w-2xl text-xl font-Satoshi-Medium">
             <h1>
               Something is Cooking <span>👨‍🍳</span>
             </h1>
-            <p>we are building something amazing together, watch this space!</p>
+            <p>We're building something amazing together. Watch this space!</p>
           </div>
 
           <div>
@@ -271,17 +271,17 @@ const Home = () => {
       {/* Form Section - Full Screen Page 2 */}
       <section
         id="form"
-        className="snap-start h-screen flex flex-col items-center justify-center text-white p-10 font-Satoshi space-y-6 bg-black"
+        className="snap-start h-screen flex flex-col items-center justify-center text-white p-10 font-Satoshi space-y-6"
       >
-        <div className="space-y-2 text-center">
-          <h1 className="text-3xl font-Satoshi-Bold">Keep Up With Us</h1>
+        <div className="text-center">
+          <h1 className="text-3xl font-Satoshi-Bold">Stay Updated</h1>
           <p>
             Get notified <span>🔔</span>
           </p>
         </div>
         <p className="text-center">
-          Kindly leave us with your contact details and we promise not to spam
-          you that much.
+          Kindly leave us with your contact details, and we promise not to spam
+          you.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-md">
