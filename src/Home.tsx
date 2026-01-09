@@ -57,10 +57,10 @@ const ButtonSecondary = ({ name, onClick }: ButtonProps) => {
       className="group relative inline-flex h-12 items-center justify-center overflow-hidden rounded-full bg-neutral-950 px-6 text-neutral-200 duration-500 border-neutral-700 hover:border-neutral-200 border-2 border-dashed"
       onClick={onClick}
     >
-      <div className="translate-x-0 opacity-100 transition group-hover:-translate-x-[150%] group-hover:opacity-0 font-Satoshi-Bold">
+      <div className="translate-x-0 opacity-100 transition md:group-hover:-translate-x-[150%] md:group-hover:opacity-0 font-Satoshi-Bold">
         {name}
       </div>
-      <div className="absolute translate-x-[150%] opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100">
+      <div className="absolute translate-x-[150%] opacity-0 transition group-hover:translate-x-0 group-hover:opacity-100 hidden md:block">
         <svg
           width="24"
           height="24"
@@ -275,9 +275,7 @@ const Home = () => {
       >
         <div className="text-center">
           <h1 className="text-3xl font-Satoshi-Bold">Stay Updated</h1>
-          <p>
-            Get notified <span>🔔</span>
-          </p>
+          <p>Get notified on launch and future updates!</p>
         </div>
         <p className="text-center">
           Kindly leave us with your contact details, and we promise not to spam
